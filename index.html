@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kauser Tiles Store</title>
+
+  <style>
+    :root {
+      --blue: #0a6cff;
+      --green: #19c37d;
+      --dark: #0b1c2d;
+      --light: #f4fbff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Water splash canvas */
+    canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      opacity: 0.9;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    nav button {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      border: none;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    nav button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      border-left: 6px solid var(--green);
+      padding-left: 15px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .product h3 {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #aaffdd;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px 15px;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    footer p {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="water"></canvas>
+
+  <header id="top">
+    <h1>Kauser Tiles Store</h1>
+    <p>
+      Kauser Tiles Store is an all-in-one store for hardware and tiles for house needs, offering a wide range of quality products according to your choice.
+    </p>
+  </header>
+
+  <nav>
+    <button onclick="scrollToSection('about')">About the Store</button>
+    <button onclick="scrollToSection('owner')">Store Owner</button>
+    <button onclick="scrollToSection('products')">Products</button>
+    <button onclick="scrollToSection('address')">Store Address</button>
+    <button onclick="scrollToSection('contact')">Contact Number</button>
+    <button onclick="scrollToSection('developer')">Website Developer</button>
+    <button onclick="scrollToSection('devcontact')">Contact Developer</button>
+  </nav>
+
+  <section id="about">
+    <h2>About the Store</h2>
+    <div class="card">
+      <p>
+        Kauser Tiles Store is a complete destination for tiles and hardware materials for your home and construction needs. We focus on quality, variety, and customer satisfaction.
+      </p>
+    </div>
+  </section>
+
+  <section id="owner">
+    <h2>Store Owner</h2>
+    <div class="card">
+      <p>
+        <strong>Owned by:</strong> Ajgar Ali<br /><br />
+        Ajgar Ali is a 35-year-old energetic businessman who runs the hardware and tiles store with passion, dedication, and experience.
+      </p>
+    </div>
+  </section>
+
+  <section id="products">
+    <h2>Products</h2>
+
+    <div class="card">
+      <h3>Tiles</h3>
+      <div class="products">
+        <div class="product">
+          <h3>Premium Tile</h3>
+          <div class="price">₹400 / per piece</div>
+        </div>
+        <div class="product">
+          <h3>Designer Tile</h3>
+          <div class="price">₹450 / per piece</div>
+        </div>
+        <div class="product">
+          <h3>Standard Tile</h3>
+          <div class="price">₹60 / per piece</div>
+        </div>
+        <div class="product">
+          <h3>Economy Tile</h3>
+          <div class="price">₹40 / per piece</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Hardware</h3>
+      <p>All types of hardware products are available at our store.</p>
+    </div>
+  </section>
+
+  <section id="address">
+    <h2>Store Address</h2>
+    <div class="card">
+      <p>Tekliputa, Shibasthan Bazaar, Nagaon, Assam</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Number</h2>
+    <div class="card">
+      <p>+91 7002531746</p>
+    </div>
+  </section>
+
+  <section id="developer">
+    <h2>Website Developer</h2>
+    <div class="card">
+      <p>
+        <strong>Nafasat Yameen</strong><br /><br />
+        Nafasat Yameen is a young developer who creates and develops multiple projects and is excited about coding and development.
+      </p>
+    </div>
+  </section>
+
+  <section id="devcontact">
+    <h2>Contact Developer</h2>
+    <div class="card">
+      <p>Discord: <strong>rex_king1</strong></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Kauser Tiles Store • Website made by Nafasat Yameen</p>
+  </footer>
+
+  <script>
+    /* Smooth scroll */
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* Water splash animation */
+    const canvas = document.getElementById('water');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const drops = [];
+
+    function createDrop(x, y) {
+      for (let i = 0; i < 15; i++) {
+        drops.push({
+          x,
+          y,
+          r: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * -4 - 2,
+          life: 60,
+        });
+      }
+    }
+
+    window.addEventListener('load', () => {
+      createDrop(canvas.width / 2, canvas.height / 2);
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drops.forEach((d, i) => {
+        d.x += d.vx;
+        d.y += d.vy;
+        d.vy += 0.15;
+        d.life--;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(180, 240, 255, 0.8)';
+        ctx.fill();
+        if (d.life <= 0) drops.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
